@@ -29,8 +29,15 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/payments', require('./routes/paymentRoutes'));
 
 // Health Check
-app.get('/', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.send('Sri Varadhan Store API is running');
+});
+
+// Serve static frontend
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../admin-dashboard/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../admin-dashboard/dist/index.html'));
 });
 
 app.listen(PORT, () => {

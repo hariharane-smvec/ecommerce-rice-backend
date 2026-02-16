@@ -8,7 +8,7 @@ export default function Orders() {
     // Poll for new orders every 5 seconds (Simple real-time simulation)
     useEffect(() => {
         const fetchOrders = () => {
-            fetch('http://localhost:5000/api/orders')
+            fetch('/api/orders')
                 .then(res => res.json())
                 .then(data => {
                     setOrders(data);
@@ -23,7 +23,7 @@ export default function Orders() {
     }, []);
 
     const updateStatus = (id, newStatus) => {
-        fetch(`http://localhost:5000/api/orders/${id}/status`, {
+        fetch(`/api/orders/${id}/status`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: newStatus })
