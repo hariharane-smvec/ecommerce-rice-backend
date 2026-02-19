@@ -33,6 +33,11 @@ app.get('/api/health', (req, res) => {
   res.send('Sri Varadhan Store API is running');
 });
 
+// Root Route
+app.get('/', (req, res) => {
+  res.send('Sri Varadhan Store Backend is Active! Use /api/products or /api/orders');
+});
+
 // Serve static frontend
 const path = require('path');
 // app.use(express.static(path.join(__dirname, '../admin-dashboard/dist')));
