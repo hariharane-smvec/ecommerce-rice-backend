@@ -35,11 +35,13 @@ app.get('/api/health', (req, res) => {
 
 // Serve static frontend
 const path = require('path');
-app.use(express.static(path.join(__dirname, '../admin-dashboard/dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../admin-dashboard/dist/index.html'));
-});
+// app.use(express.static(path.join(__dirname, '../admin-dashboard/dist')));
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../admin-dashboard/dist/index.html'));
+// });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;
