@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Package, Clock, CheckCircle } from 'lucide-react';
+import { API_URL } from '../config';
 
 export default function Orders() {
     const [orders, setOrders] = useState([]);
@@ -8,7 +9,7 @@ export default function Orders() {
     // Poll for new orders every 5 seconds (Simple real-time simulation)
     useEffect(() => {
         const fetchOrders = () => {
-            fetch('/api/orders')
+            fetch(`${API_URL}/api/orders`)
                 .then(res => res.json())
                 .then(data => {
                     setOrders(data);
@@ -23,7 +24,7 @@ export default function Orders() {
     }, []);
 
     const updateStatus = (id, newStatus) => {
-        fetch(`/api/orders/${id}/status`, {
+        fetch(`${API_URL}/api/orders/${id}/status`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: newStatus })

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Edit2, Trash2, X } from 'lucide-react';
+import { API_URL } from '../config';
 
 export default function Products() {
     const [products, setProducts] = useState([]);
@@ -18,7 +19,7 @@ export default function Products() {
 
     const fetchProducts = () => {
         setLoading(true);
-        let url = '/api/products';
+        let url = `${API_URL}/api/products`;
         if (selectedCategory !== 'All Categories') {
             url += `?category=${encodeURIComponent(selectedCategory)}`;
         }
@@ -51,18 +52,38 @@ export default function Products() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Add auth token here if needed
-                },
-                body: JSON.stringify({
-                    ...formData,
-                    price: parseFloat(formData.price),
-                    stock: parseInt(formData.stock) || 0
-                })
+            let response;
+            // Assuming 'editingProduct' state variable would be introduced for update functionality
+            // For now, we'll just use the POST logic as the default if 'editingProduct' is not defined
+            // or is null/falsey.
+            const editingProduct = null; // Placeholder for future implementation
+
+            const commonHeaders = {
+                'Content-Type': 'application/json',
+                // Add auth token here if needed
+            };
+
+            const bodyData = JSON.stringify({
+                ...formData,
+                price: parseFloat(formData.price),
+                stock: parseInt(formData.stock) || 0
             });
+
+            if (editingProduct) {
+                // Update
+                response = await fetch(`${API_URL}/api/products/${editingProduct._id}`, {
+                    method: 'PUT',
+                    headers: commonHeaders,
+                    body: bodyData
+                });
+            } else {
+                // Create
+                response = await fetch(`${API_URL}/api/products`, {
+                    method: 'POST',
+                    headers: commonHeaders,
+                    body: bodyData
+                });
+            }
 
             if (response.ok) {
                 setIsModalOpen(false);

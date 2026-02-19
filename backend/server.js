@@ -40,8 +40,10 @@ const path = require('path');
 //   res.sendFile(path.join(__dirname, '../admin-dashboard/dist/index.html'));
 // });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 module.exports = app;
