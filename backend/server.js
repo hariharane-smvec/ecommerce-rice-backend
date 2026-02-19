@@ -9,8 +9,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors()); // Allow all for now, restrict in production
 app.use(require('helmet')()); // Security Headers
 app.use(express.json({ limit: '10kb' })); // Body limit
-app.use(require('xss-clean')()); // Data Sanitization against XSS
-app.use(require('hpp')()); // Prevent HTTP Parameter Pollution
+// app.use(require('xss-clean')()); // Data Sanitization against XSS
+// app.use(require('hpp')()); // Prevent HTTP Parameter Pollution
 
 // Rate Limiting
 const limiter = require('express-rate-limit')({
