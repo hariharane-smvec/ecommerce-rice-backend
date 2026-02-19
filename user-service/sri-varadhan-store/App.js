@@ -15,7 +15,9 @@ import {
 } from 'react-native';
 
 // Replace with your Vercel Backend URL
-const API_URL = 'https://ecommerce-rice-backend.vercel.app/api';
+// Replace with your Vercel Backend URL
+// Logic: Use Env Var if available, otherwise use default production URL
+const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://ecommerce-rice-backend.vercel.app/api';
 
 // Home - Hero + Catalog
 function HomeScreen({ addToCart }) {
